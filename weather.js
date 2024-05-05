@@ -12,27 +12,27 @@ function suggestOutdoorActivity(weatherDescription) {
     if (weatherDescription.includes("clear")) {
         activity = "go for a picnic or a hike";
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
-        document.querySelector("body").style.backgroundImage="url('1.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('1.jpg')";
     } else if (weatherDescription.includes("clouds")) {
         activity = "go for a walk or a bike ride";
-        document.querySelector("body").style.backgroundImage="url('bike_final.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('bike_final.jpg')";
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
     } else if (weatherDescription.includes("rain")) {
         activity = "stay indoors and read a book";
-        document.querySelector("body").style.backgroundImage="url('indoor_final.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('indoor_final.jpg')";
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
     } else if (weatherDescription.includes("snow")) {
         activity = "build a snowman or have a snowball fight";
-        document.querySelector("body").style.backgroundImage="url('snow2.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('snow2.jpg')";
         document.querySelector(".activity").textContent = activity;
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
     } else if (weatherDescription.includes("drizzle")) {
         activity = "stay lazy!";
-        document.querySelector("body").style.backgroundImage="url('lazy_final.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('lazy_final.jpg')";
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
-    }else {
+    } else {
         activity = "enjoy the weather outside";
-        document.querySelector("body").style.backgroundImage="url('mist_final.jpg')";
+        document.querySelector("body").style.backgroundImage = "url('mist_final.jpg')";
         document.querySelector(".card2").style.textShadow = "2px 2px 2px black";
     }
 
@@ -59,11 +59,11 @@ function displayAlert(message) {
 }
 
 async function checkWeather(city) {
-    const response = await fetch(apiUrl + city + &appid=${apiKey}&units=metric);
+    const response = await fetch(`${apiUrl}${city}&appid=${apiKey}&units=metric`);
     const data = await response.json();
     const weatherDescription = data.list[0].weather[0].description.toLowerCase();
     const suggestedActivity = suggestOutdoorActivity(weatherDescription);
-    document.querySelector(".activity").innerHTML = You can ${suggestedActivity}.;
+    document.querySelector(".activity").innerHTML = `You can ${suggestedActivity}.`;
 
     if (response.status == 404) {
         displayAlert("Invalid City Name.");
@@ -76,15 +76,15 @@ async function checkWeather(city) {
 
         const weather = data.list[0].weather[0].main;
         if (weather === "Clouds") {
-            weatherIcon.src = "image/Clouds.png";
+            weatherIcon.src = "Clouds.png";
         } else if (weather === "Clear") {
-            weatherIcon.src = "image/Clear.png";
+            weatherIcon.src = "Clear.png";
         } else if (weather === "Rain") {
-            weatherIcon.src = "image/Rain.png";
+            weatherIcon.src = "Rain.png";
         } else if (weather === "Drizzle") {
-            weatherIcon.src = "image/Drizzle.png";
+            weatherIcon.src = "Drizzle.png";
         } else if (weather === "Mist") {
-            weatherIcon.src = "image/Mist.png";
+            weatherIcon.src = "Mist.png";
         }
 
         document.querySelector(".weather").style.display = "block";
@@ -94,8 +94,8 @@ async function checkWeather(city) {
         const sunriseTime = new Date(data.city.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const sunsetTime = new Date(data.city.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        document.querySelector(".sunrise").innerHTML = Sunrise: ${sunriseTime};
-        document.querySelector(".sunset").innerHTML = Sunset: ${sunsetTime};
+        document.querySelector(".sunrise").innerHTML = `Sunrise: ${sunriseTime}`;
+        document.querytor(".sunset").innerHTML = `Sunset: ${sunsetTime}`;
 
         // Display hourly forecast details
         const forecastData = data.list;
@@ -109,7 +109,7 @@ async function checkWeather(city) {
             const forecast = forecastData.find(item => new Date(item.dt * 1000).getHours() === hour);
             if (forecast) {
                 const dateTime = new Date(forecast.dt * 1000);
-                const weatherIcon = https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png;
+                const weatherIcon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
                 const temp = Math.round(forecast.main.temp);
                 const weatherDescription = forecast.weather[0].description;
                 const timeOfDay = dateTime.getHours() >= 12 ? "PM" : "AM";
